@@ -67,6 +67,11 @@ std::cout << "Hashing " << keyID << " to " << h << std::endl;
   return h;
 }
 
+//    int size =  current size of the hash table array
+//    const static int primes[]; // table of good primes for table size
+//    int size_index =  index of the current table size in the primes[] array
+                    // Invariant:  size == primes[size_index]
+//    int number;   // 
 void ResizeChainHashDict::rehash() {
   // 221 Students:  DO NOT CHANGE OR DELETE THE NEXT FEW LINES!!!
   // And leave this at the beginning of the rehash() function.
@@ -83,6 +88,35 @@ void ResizeChainHashDict::rehash() {
   // you'll want to create a new ChainNode in the new table, and make
   // sure you delete the old ChainNode.  But don't delete the PuzzleStates.
 
+  // make a new bigger table
+  int oldSize = size;
+  size_index++;
+  size = primes[size_index];
+
+  ChainNode **oldTable = table;
+  table = new ChainNode*[size](); // Parentheses initialize to all NULL
+
+  // copy values from old table to new table
+  for(int h = 0; h < oldSize; h++){
+    if(oldTable[h] != NULL){
+
+      ChainNode* oldChainNode;
+      ChainNode* newChainNode = oldTable[h];
+
+      // also remember to add all values in collision chain
+      while(newChainNode != NULL){
+        add(newChainNode->key, newChainNode->data);
+        oldChainNode = newChainNode;
+        newChainNode = newChainNode->next;
+        delete oldChainNode;
+      }
+    }
+  }
+
+  // reset
+  number = 0;
+
+  delete[] oldTable;
 
   // 221 Students:  DO NOT CHANGE OR DELETE THE NEXT FEW LINES!!!
   // And leave this at the end of the rehash() function.
@@ -109,6 +143,7 @@ void ResizeChainHashDict::add(PuzzleState *key, PuzzleState *pred) {
   if (2*(number+1) > size) rehash();  // DO NOT CHANGE THIS LINE
 
   // TODO:  Your code goes here...
+
 }
 
 #endif 

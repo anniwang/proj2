@@ -45,6 +45,7 @@ FixedChainHashDict::~FixedChainHashDict() {
 
   // It's not good style to put this into a destructor,
   // but it's convenient for this assignment...
+  cout << "Total calls to find(): " << numOfCallsToFind+1 << endl;
   cout << "Probe Statistics for find():\n";
   for (int i=0; i<MAX_STATS; i++)
     cout << i << ": " << probes_stats[i] << endl;
@@ -54,7 +55,7 @@ FixedChainHashDict::~FixedChainHashDict() {
 // do not modify the hash function
 int FixedChainHashDict::hash(string keyID) {
   int h=0;
-  for (int i=(int)keyID.length()-1; i>=0; i--) {
+  for (int i=keyID.length()-1; i>=0; i--) {
     h = (keyID[i] + 31*h) % size;
   }
 
@@ -76,10 +77,10 @@ bool FixedChainHashDict::find(PuzzleState *key, PuzzleState *&pred) {
   // TODO:  Put your code here!  
 
   //Remember to update probes_stats, too.
-   //count how many entries are checked in the collision chain 
+   //ie. count how many entries are checked in the collision chain 
    //on each call to find(), 
    //and to update the statistics in the probes_stats array.
-  
+
   numOfCallsToFind++; // from 0 to 20
   return find_helper(key->getUniqId(), pred);
 }
@@ -91,6 +92,7 @@ bool FixedChainHashDict::find_helper(string keyID, PuzzleState *&pred) {
   int h = hash(keyID);
   ChainNode* chainHead = table[h];
   int count = 0; // count checks in collision chain
+                  // starts off with check at table[h]
 
   // keep going down the chain until we find node that matches keyID
   while(chainHead!= NULL && chainHead->keyID != keyID){
