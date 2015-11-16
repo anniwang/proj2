@@ -2,7 +2,7 @@ Student Name #1: Anni Wang
 Student ugrad login #1: v8v8
 
 Student Name #2: Mohamed Shehata
-Student ugrad login #2: 
+Student ugrad login #2: t0x8
 
 Team name (for fun!): RocketFuel
 
@@ -48,15 +48,8 @@ Notice that these are MUCH faster than in Project 1, because I have
 improved LinkedListDict, but your code will make things run even faster!
 
 - using StdStack and LinkedListDict, running the 3x3 Slider Puzzle is as follows:
-real	18m43.698s
-user	9m34.988s
-sys		0m8.589s
 
 - using StdQueue and LinkedListDict, running the 3x3 Slider Puzzle (for a VERY long time) is as follows:
-real	83m24.441s 
-user	39m50.025s
-sys		0m27.771s
-(yes! We really waited more than an hour for it to finish, could we get extra marks for this?)
 
 - Summary: even though the stdQueue and stdStack are much faster, it still took a really long time to solve the 3x3 slider puzzle. Also BFS using the stack was much faster than DFS using the Queue.
 
@@ -99,11 +92,8 @@ no is fine, but it's fun to try to see what's happening.)  Then,
 comment out the usleep and cout statements and time this.  How long
 did it take?  You should really see the advantage of BestFS!
 
-- yes?
-- using HeapPriorityQueue and LinkedListDict, the runtime is:
-real	43m41.841s
-user	37m29.529s
-sys		0m3.338s
+- 12m21.962s 
+  Not sure what it's doing exactly, but the benefits are obvious!
 
 
 5.  With your new data structures, the 3x3 slider puzzle has become
