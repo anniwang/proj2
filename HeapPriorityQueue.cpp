@@ -82,7 +82,7 @@ void HeapPriorityQueue::swapDown(){
 
 //iterative solution
   while(true){
-    int m = parent; // m = min?
+    int m = parent; // m = min
     int left = first_child(parent);
     int right = first_child(parent) + 1;
     int n = (int)heap.size();

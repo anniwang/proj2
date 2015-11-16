@@ -47,12 +47,12 @@ When you use StdQueue for activeStates?  (These will take several minutes.)
 Notice that these are MUCH faster than in Project 1, because I have
 improved LinkedListDict, but your code will make things run even faster!
 
-- using StdStack, running the 3x3 Slider Puzzle is as follows:
+- using StdStack and LinkedListDict, running the 3x3 Slider Puzzle is as follows:
 real	18m43.698s
 user	9m34.988s
 sys		0m8.589s
 
-- using StdQueue, running the 3x3 Slider Puzzle (for a VERY long time) is as follows:
+- using StdQueue and LinkedListDict, running the 3x3 Slider Puzzle (for a VERY long time) is as follows:
 real	83m24.441s 
 user	39m50.025s
 sys		0m27.771s
@@ -100,6 +100,10 @@ comment out the usleep and cout statements and time this.  How long
 did it take?  You should really see the advantage of BestFS!
 
 - yes?
+- using HeapPriorityQueue and LinkedListDict, the runtime is:
+real	43m41.841s
+user	37m29.529s
+sys		0m3.338s
 
 
 5.  With your new data structures, the 3x3 slider puzzle has become

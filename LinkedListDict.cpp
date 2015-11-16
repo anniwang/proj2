@@ -25,6 +25,8 @@ LinkedListDict::~LinkedListDict() {
   }
 }
 
+
+/*go thru list and compare keys, if found, update pred and return true*/
 bool LinkedListDict::find_helper(node *r, string keyID, PuzzleState *&pred) {
   while (r!=NULL) {
     if (keyID == r->keyID) {
@@ -36,10 +38,13 @@ bool LinkedListDict::find_helper(node *r, string keyID, PuzzleState *&pred) {
   return false; // Never found it.
 }
 
+// search:
 bool LinkedListDict::find(PuzzleState *key, PuzzleState *&pred) {
   return find_helper(root, key->getUniqId(), pred);
 }
 
+// insert:
+/*insert new node before root/head, then update new node as root*/
 void LinkedListDict::add(PuzzleState *key, PuzzleState *pred) {
   node * temp = new node();
   temp->key = key;

@@ -24,6 +24,7 @@ class ResizeChainHashDict : public PredDict
     // for the PuzzleState being searched for, and does all the
     // comparisons on strings.  This is much more efficient than
     // calling getUniqId() repeatedly.
+    
     struct ChainNode {
       PuzzleState *key; // NULL indicates empty bucket.
       string keyID; // Avoid recomputation of key's getUniqId()
