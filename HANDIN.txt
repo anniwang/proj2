@@ -2,7 +2,7 @@ Student Name #1: Anni Wang
 Student ugrad login #1: v8v8
 
 Student Name #2: Mohamed Shehata
-Student ugrad login #2: 
+Student ugrad login #2: t0x8
 
 Team name (for fun!): RocketFuel
 
@@ -99,7 +99,8 @@ no is fine, but it's fun to try to see what's happening.)  Then,
 comment out the usleep and cout statements and time this.  How long
 did it take?  You should really see the advantage of BestFS!
 
-- yes?
+- 12m21.962s 
+  Not sure what it's doing exactly, but the benefits are obvious!
 
 
 5.  With your new data structures, the 3x3 slider puzzle has become
