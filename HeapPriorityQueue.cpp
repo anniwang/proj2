@@ -68,7 +68,7 @@ void HeapPriorityQueue::swapUp(){
   int parent = get_parent(child); 
 
   // iterative solution:
-  while(heap[child] < heap[parent] && child>=0 && parent >=0){
+  while(heap[child]->getBadness() < heap[parent]->getBadness() && child>=0 && parent >=0){
     swap(child, parent);
     child = parent; // go up a level
     parent = get_parent(child);
@@ -87,10 +87,10 @@ void HeapPriorityQueue::swapDown(){
     int right = first_child(parent) + 1;
     int n = (int)heap.size();
 
-    if (left < n && heap[left] < heap[m])
+    if (left < n && heap[left]->getBadness() < heap[m]->getBadness())
       m = left;
 
-    if (right < n && heap[right] < heap[m])
+    if (right < n && heap[right]->getBadness() < heap[m]->getBadness())
       m = right;
 
     if (m != parent) {

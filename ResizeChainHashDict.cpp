@@ -93,11 +93,11 @@ void ResizeChainHashDict::rehash() {
   int oldSize = size;
   size_index++;
   size = primes[size_index];
-  
-  number = 0;
-
   ChainNode **oldTable = table;
   table = new ChainNode*[size](); // Parentheses initialize to all NULL
+
+  
+  number = 0; // reset number of hashes to zero so we don't over-count
 
   // copy values from old table to new table
   for(int h = 0; h < oldSize; h++){
