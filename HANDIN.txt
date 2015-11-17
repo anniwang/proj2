@@ -4,7 +4,7 @@ Student ugrad login #1: v8v8
 Student Name #2: Mohamed Shehata
 Student ugrad login #2: t0x8
 
-Team name (for fun!): RocketFuel
+Team name (for fun!): TeamRocket
 
 Acknowledgment that you understand and have followed the course's
 collaboration policy
@@ -19,19 +19,19 @@ TODO: submit using: make handin-proj2
 
 Approximate hours on project: TODO:
 
+9 hours working together-ish.
 ----------------------------------------------------------------------
 
 For teams, rough breakdown of work: TODO:
 
+- do everything together!!
 ----------------------------------------------------------------------
 
 Acknowledgment of assistance: 
 
-- For heap implementation we used:
-https://gist.github.com/truncs/1810804
-
-
-
+- For heap priority queue we used https://gist.github.com/truncs/1810804 as reference
+- for the fixed chain hash table we used http://www.algolist.net/Data_structures/Hash_table/Chaining for reference
+- for the resize chain hash table we used http://www.algolist.net/Data_structures/Hash_table/Dynamic_resizing for reference
 ----------------------------------------------------------------------
 
 Questions:
@@ -47,9 +47,9 @@ When you use StdQueue for activeStates?  (These will take several minutes.)
 Notice that these are MUCH faster than in Project 1, because I have
 improved LinkedListDict, but your code will make things run even faster!
 
-- using StdStack and LinkedListDict, running the 3x3 Slider Puzzle is as follows:
+- using StdStack and LinkedListDict, running the 3x3 Slider Puzzle is as follows: TODO
 
-- using StdQueue and LinkedListDict, running the 3x3 Slider Puzzle (for a VERY long time) is as follows:
+- using StdQueue and LinkedListDict, running the 3x3 Slider Puzzle (for a VERY long time) is as follows: TODO
 
 - Summary: even though the stdQueue and stdStack are much faster, it still took a really long time to solve the 3x3 slider puzzle. Also BFS using the stack was much faster than DFS using the Queue.
 
@@ -61,28 +61,59 @@ using StdStack and StdQueue?
 You can now see the trade-off of DFS vs. BFS.
 And you should see the huge gain of hashing.
 
-- using StdStack and FiedChainHashDict, solving 3x3 Slider Puzzle we get:
->> # steps:
+- using StdStack and FixedChainHashDict, solving 3x3 Slider Puzzle we get:
+>> # steps: 199,153
 >> runtime:
+real	0m45.632s
+user	0m10.495s
+sys		0m1.257s
 
-- using StdQueue and FiedChainHashDict, solving 3x3 Slider Puzzle we get:
->> # steps:
+- using StdQueue and FixedChainHashDict, solving 3x3 Slider Puzzle we get:
+>> # steps: 483,765
 >> runtime:
+real	2m8.561s
+user	0m41.109s
+sys 	0m0.163s
+
+- Summary: We see that Stack(BFS) takes less time and number of steps to solve than the queue(DFS). Also compared with Q1 we see a improvement in run time. 
 
 
 3.  Repeat Q2 with ResizeChainHashDict.  (What are runtimes and steps, etc.?)
-What is the average number of
-collision chain nodes examined per call to find?
+What is the average number of collision chain nodes examined per call to find?
 
 - using StdStack and ResizeChainHashDict, solving 3x3 Slider Puzzle we get
->> # steps:
+>> # steps: 48431
 >> runtime:
->> # collision chain nodes examined/call:
+real	0m10.240s
+user	0m1.008s
+sys		0m1.023s
+>> Probe Statistics for find():
+0: 161763
+1: 31289
+2: 5378
+3: 655
+4: 62
+5: 6
+6: 0
+...
+Thus the average # collision nodes per call to find is: 1.222 （In the average case the key was found on the first node inspected)
 
 - using StdQueue and ResizeChainHashDict, rsolving 3x3 Slider Puzzle we get
->> # steps:
->> runtime:
->> # collision chain nodes examined/call:
+>> # steps: 31
+>> runtime: 
+real	0m8.767s
+user	0m2.123s
+sys		0m0.046s
+>> Probe Statistics for find():
+0: 394944
+1: 75970
+2: 11411
+3: 1300
+4: 132
+5: 8
+6: 0
+...
+Thus the average # collision nodes per call to find is: 1.213 （In the average case the key was found on the first node inspected)
 
 
 4.  Now, edit solve.cpp to go back to using LinkedListDict, but switch
@@ -92,8 +123,8 @@ no is fine, but it's fun to try to see what's happening.)  Then,
 comment out the usleep and cout statements and time this.  How long
 did it take?  You should really see the advantage of BestFS!
 
-- 12m21.962s 
-  Not sure what it's doing exactly, but the benefits are obvious!
+- real time： 12m21.962s 
+  Each puzzleState is given an integer representing its estimated distance from the solution, and the solving algorithm then moves along puzzleStates by hoosing the least bad (i.e. lowest integer) next possible state. The benefits are a decreased range of differenet puzzleStates that need to be explored before a solution is found.
 
 
 5.  With your new data structures, the 3x3 slider puzzle has become
@@ -102,13 +133,14 @@ switch to the 5x5 slider puzzle.  Make sure you are using HeapPriorityQueue.
 How long does this take if you use LinkedListDict?  FixedChainHashDict
 with size 1000?  ResizeChainHashDict?  Are you impressed?
 
-- runtime with of 5x5 Slider Puzzle with HeapPriorityQueue and LinkedListDict:
+- runtime with of 5x5 Slider Puzzle with HeapPriorityQueue and LinkedListDict: TODO
 
-- runtime with of 5x5 Slider Puzzle with HeapPriorityQueue and FixedChainHashDict(size=1000):
+- runtime with of 5x5 Slider Puzzle with HeapPriorityQueue and FixedChainHashDict(size=1000): TODO
 
-- runtime with of 5x5 Slider Puzzle with HeapPriorityQueue and ResizeChainHashDict:
-
-
+- runtime with of 5x5 Slider Puzzle with HeapPriorityQueue and ResizeChainHashDict: TODO
+real	19m52.783s
+user	4m4.084s
+sys		0m10.460s
 ----------------------------------------------------------------------
 
 We will be checking your implementations of HeapPriorityQueue,
