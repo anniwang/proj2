@@ -55,7 +55,7 @@ FixedChainHashDict::~FixedChainHashDict() {
 // do not modify the hash function
 int FixedChainHashDict::hash(string keyID) {
   int h=0;
-  for (int i=keyID.length()-1; i>=0; i--) {
+  for (int i=(int)keyID.length()-1; i>=0; i--) {
     h = (keyID[i] + 31*h) % size;
   }
 
@@ -92,7 +92,7 @@ bool FixedChainHashDict::find_helper(string keyID, PuzzleState *&pred) {
   int h = hash(keyID);
   ChainNode* chainHead = table[h];
   int count = 0; // count checks in collision chain
-                  // starts off with check at table[h]
+                  // starts off with 1 check at table[h]
 
   // keep going down the chain until we find node that matches keyID
   while(chainHead!= NULL && chainHead->keyID != keyID){
@@ -101,7 +101,8 @@ bool FixedChainHashDict::find_helper(string keyID, PuzzleState *&pred) {
   }
 
   // update stats
-  probes_stats[numOfCallsToFind] = count;
+  if(count < 20)
+    probes_stats[count]++;
 
   if(chainHead != NULL){
     pred = chainHead->data; 
@@ -118,33 +119,25 @@ void FixedChainHashDict::add(PuzzleState *key, PuzzleState *pred) {
   string myKeyID = key->getUniqId();  // call get id once
 
   int h = hash(myKeyID);
-  ChainNode* chainHead = table[h];
 
   // create new node
-  ChainNode * temp = new ChainNode();
+  ChainNode* temp = new ChainNode();
   temp->key = key;
   temp->keyID = myKeyID;
   temp->data = pred;
   temp->next = NULL;
 
-  // if table is empty, add node to slot
-  // if table is nonempty, add node to last element
-  if(chainHead == NULL){
-    chainHead = temp;
+  // if table slot is empty, add node to slot
+  // if table slot is nonempty, add node to the front of chain
+  if(table[h] == NULL){
+    table[h] = temp;
 
   }  else{
-
-    // search for last element, last->next=null
-    while(chainHead->next != NULL){
-      chainHead = chainHead->next;
-    }
-
     //note: assume there will be no duplicates
-    // let the next element of the last element be the new element
-    chainHead->next = temp;
+    temp->next = table[h];
+    table[h] = temp;
 
   }
-
 
   return;
 }

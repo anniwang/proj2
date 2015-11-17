@@ -27,6 +27,7 @@ ResizeChainHashDict::ResizeChainHashDict() {
 
   // Initialize the array of counters for probe statistics
   probes_stats = new int[MAX_STATS]();
+  numOfCallsToFind = -1;
 }
 
 ResizeChainHashDict::~ResizeChainHashDict() {
@@ -54,7 +55,7 @@ ResizeChainHashDict::~ResizeChainHashDict() {
 
 int ResizeChainHashDict::hash(string keyID) {
   int h=0;
-  for (int i=keyID.length()-1; i>=0; i--) {
+  for (int i=(int)keyID.length()-1; i>=0; i--) {
     h = (keyID[i] + 31*h) % size;
   }
 // 221 Students:  DO NOT CHANGE OR DELETE THE NEXT FEW LINES!!!
@@ -92,6 +93,8 @@ void ResizeChainHashDict::rehash() {
   int oldSize = size;
   size_index++;
   size = primes[size_index];
+  
+  number = 0;
 
   ChainNode **oldTable = table;
   table = new ChainNode*[size](); // Parentheses initialize to all NULL
@@ -100,21 +103,18 @@ void ResizeChainHashDict::rehash() {
   for(int h = 0; h < oldSize; h++){
     if(oldTable[h] != NULL){
 
-      ChainNode* oldChainNode;
-      ChainNode* newChainNode = oldTable[h];
+      //ChainNode* oldChainNode;
+      ChainNode* currentNode = oldTable[h];
 
       // also remember to add all values in collision chain
-      while(newChainNode != NULL){
-        add(newChainNode->key, newChainNode->data);
-        oldChainNode = newChainNode;
-        newChainNode = newChainNode->next;
-        delete oldChainNode;
+      while(currentNode != NULL){
+        add(currentNode->key, currentNode->data);
+        //oldChainNode = newChainNode;
+        currentNode = currentNode->next;
+        //delete oldChainNode;
       }
     }
   }
-
-  // reset
-  number = 0;
 
   delete[] oldTable;
 
@@ -134,6 +134,34 @@ bool ResizeChainHashDict::find(PuzzleState *key, PuzzleState *&pred) {
 
   // TODO:  Your code goes here...
   // Don't forget to update the probes_stats!
+
+  numOfCallsToFind++; // from 0 to 20
+  return find_helper(key->getUniqId(), pred);
+}
+
+bool ResizeChainHashDict::find_helper(string keyID, PuzzleState *&pred) {
+ 
+  int h = hash(keyID);
+  ChainNode* chainHead = table[h];
+  int count = 0; // count checks in collision chain
+                  // starts off with 1 check at table[h]
+
+  // keep going down the chain until we find node that matches keyID
+  while(chainHead!= NULL && chainHead->keyID != keyID){
+    chainHead = chainHead->next;
+    count++;
+  }
+
+  // update stats
+  if(count < 20)
+    probes_stats[count]++;
+
+  if(chainHead != NULL){
+    pred = chainHead->data; 
+    return true;
+    }
+
+  return false; // Never found it.
 }
 
 // You may assume that no duplicate PuzzleState is ever added.
@@ -142,7 +170,34 @@ void ResizeChainHashDict::add(PuzzleState *key, PuzzleState *pred) {
   // Rehash if adding one more element pushes load factor over 1/2
   if (2*(number+1) > size) rehash();  // DO NOT CHANGE THIS LINE
 
-  // TODO:  Your code goes here...
+  // TODO:  Put your code here!
+  
+  string myKeyID = key->getUniqId();  // call get id once
+
+  int h = hash(myKeyID);
+
+  // create new node
+  ChainNode* temp = new ChainNode();
+  temp->key = key;
+  temp->keyID = myKeyID;
+  temp->data = pred;
+  temp->next = NULL;
+
+  // if table slot is empty, add node to slot
+  // if table slot is nonempty, add node to the front of chain
+  if(table[h] == NULL){
+    table[h] = temp;
+
+  }  else{
+    //note: assume there will be no duplicates
+    temp->next = table[h];
+    table[h] = temp;
+
+  }
+
+  number++;
+
+  return;
 
 }
 

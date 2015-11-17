@@ -25,7 +25,9 @@ class ResizeChainHashDict : public PredDict
     // comparisons on strings.  This is much more efficient than
     // calling getUniqId() repeatedly.
     
-    struct ChainNode {
+      bool find_helper(string keyID, PuzzleState *&pred);
+
+      struct ChainNode {
       PuzzleState *key; // NULL indicates empty bucket.
       string keyID; // Avoid recomputation of key's getUniqId()
       PuzzleState *data;
@@ -37,11 +39,14 @@ class ResizeChainHashDict : public PredDict
     // declaring "ChainNode * table[size]" so you can resize the table.
     // This is similar to ArrayStack and ArrayQueue in your first project.
     ChainNode **table;
+    
     int size; // current size of the hash table array
     const static int primes[]; // table of good primes for table size
     int size_index; // index of the current table size in the primes[] array
                     // Invariant:  size == primes[size_index]
     int number; // how many items are currently in hash table
+    
+    int numOfCallsToFind;
 
     // The next two variables are just to collect statistics on the
     // number of probes required for each call to find().
