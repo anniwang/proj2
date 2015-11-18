@@ -19,7 +19,7 @@ TODO: submit using: make handin-proj2
 
 Approximate hours on project: TODO:
 
-9 hours working together-ish.
+11 hours working together-ish.
 ----------------------------------------------------------------------
 
 For teams, rough breakdown of work: TODO:
@@ -123,8 +123,12 @@ no is fine, but it's fun to try to see what's happening.)  Then,
 comment out the usleep and cout statements and time this.  How long
 did it take?  You should really see the advantage of BestFS!
 
-- real time： 12m21.962s 
-  Each puzzleState is given an integer representing its estimated distance from the solution, and the solving algorithm then moves along puzzleStates by hoosing the least bad (i.e. lowest integer) next possible state. The benefits are a decreased range of differenet puzzleStates that need to be explored before a solution is found.
+real    0m0.036s
+user    0m0.023s
+sys     0m0.004s
+
+
+  Each puzzleState is given an integer representing its estimated distance from the solution, and the solving algorithm then moves along puzzleStates by hoosing the least bad (i.e. lowest integer) next possible state. The benefits are a decreased range of differenet puzzleStates that need to be explored before a solution is found. This dramatically decreases the runtime as the number of states we explore otherwise increases exponentially with n (n being the dimension of the puzzle).
 
 
 5.  With your new data structures, the 3x3 slider puzzle has become
@@ -133,14 +137,21 @@ switch to the 5x5 slider puzzle.  Make sure you are using HeapPriorityQueue.
 How long does this take if you use LinkedListDict?  FixedChainHashDict
 with size 1000?  ResizeChainHashDict?  Are you impressed?
 
-- runtime with of 5x5 Slider Puzzle with HeapPriorityQueue and LinkedListDict: TODO
+- runtime with of 5x5 Slider Puzzle with HeapPriorityQueue and LinkedListDict:
+real    2m47.172s
+user    2m46.185s
+sys     0m0.780s
+- runtime with of 5x5 Slider Puzzle with HeapPriorityQueue and FixedChainHashDict(size=1000):
+real    0m5.659s
+user    0m5.422s
+sys     0m0.142s
 
-- runtime with of 5x5 Slider Puzzle with HeapPriorityQueue and FixedChainHashDict(size=1000): TODO
+- runtime with of 5x5 Slider Puzzle with HeapPriorityQueue and ResizeChainHashDict: 
+real    0m2.557s
+user    0m2.525s
+sys     0m0.026s
 
-- runtime with of 5x5 Slider Puzzle with HeapPriorityQueue and ResizeChainHashDict: TODO
-real	19m52.783s
-user	4m4.084s
-sys		0m10.460s
+We are extremely impressed. We were expecting great results but this is almost unbelievable.
 ----------------------------------------------------------------------
 
 We will be checking your implementations of HeapPriorityQueue,
