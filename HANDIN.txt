@@ -47,7 +47,10 @@ When you use StdQueue for activeStates?  (These will take several minutes.)
 Notice that these are MUCH faster than in Project 1, because I have
 improved LinkedListDict, but your code will make things run even faster!
 
-- using StdStack and LinkedListDict, running the 3x3 Slider Puzzle is as follows: TODO
+- using StdStack and LinkedListDict, running the 3x3 Slider Puzzle is as follows:
+real    5m37.400s
+user    5m35.157s
+sys     0m1.299s
 
 - using StdQueue and LinkedListDict, running the 3x3 Slider Puzzle (for a VERY long time) is as follows: TODO
 
