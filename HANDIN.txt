@@ -17,12 +17,12 @@ TODO: submit using: make handin-proj2
 
 ----------------------------------------------------------------------
 
-Approximate hours on project: TODO:
+Approximate hours on project:
 
 11 hours working together-ish.
 ----------------------------------------------------------------------
 
-For teams, rough breakdown of work: TODO:
+For teams, rough breakdown of work:
 
 - do everything together!!
 ----------------------------------------------------------------------
@@ -52,7 +52,10 @@ real    5m37.400s
 user    5m35.157s
 sys     0m1.299s
 
-- using StdQueue and LinkedListDict, running the 3x3 Slider Puzzle (for a VERY long time) is as follows: TODO
+- using StdQueue and LinkedListDict, running the 3x3 Slider Puzzle (for a VERY long time) is as follows: 
+real    23m49.545s
+user    23m48.118s
+sys     0m0.506s
 
 - Summary: even though the stdQueue and stdStack are much faster, it still took a really long time to solve the 3x3 slider puzzle. Also BFS using the stack was much faster than DFS using the Queue.
 
